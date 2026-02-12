@@ -23,6 +23,13 @@ const RiskManagement = () => {
   };
 
   const handleCalculate = async () => {
+    // Validate that all fields have valid values
+    if (formData.accountSize <= 0 || formData.riskPercentage <= 0 || 
+        formData.entryPrice <= 0 || formData.stopLoss <= 0 || formData.takeProfit <= 0) {
+      console.error('All fields must have positive values');
+      return;
+    }
+    
     try {
       setLoading(true);
       const response = await riskAPI.calculateRisk(formData);

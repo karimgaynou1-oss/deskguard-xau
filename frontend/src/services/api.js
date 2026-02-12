@@ -11,8 +11,17 @@ export const marketAPI = {
 };
 
 export const riskAPI = {
-  calculateRisk: (params) => 
-    axios.post(`${API_BASE_URL}/api/risk/calculate`, null, { params }),
+  calculateRisk: (params) => {
+    // Convert camelCase to snake_case for backend API
+    const snakeCaseParams = {
+      account_size: params.accountSize,
+      risk_percentage: params.riskPercentage,
+      entry_price: params.entryPrice,
+      stop_loss: params.stopLoss,
+      take_profit: params.takeProfit,
+    };
+    return axios.post(`${API_BASE_URL}/api/risk/calculate`, null, { params: snakeCaseParams });
+  },
 };
 
 export const performanceAPI = {
